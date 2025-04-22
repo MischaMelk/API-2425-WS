@@ -18,13 +18,70 @@
 
 <body>
   <header>
-    Deze header staat op elke pagina
+    Header
   </header>
   <main>
     {% block content %}{% endblock %}
+    
+
+
   </main>
   <footer>
-    Deze footer staat op elke pagina
+    Footer
   </footer>
+  <script>
+
+    const evtSource = new EventSource('/events');
+
+    const priceFormatters = {
+  eur: new Intl.NumberFormat('nl-NL', { style: 'currency', currency: 'EUR' }),
+  usd: new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }),
+  btc: { format: (value) => `${value.toFixed(8)} BTC` }, // Aangepaste formatter voor BTC
+  cny: new Intl.NumberFormat('zh-CN', { style: 'currency', currency: 'CNY' }),
+  gbp: new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP' }),
+  rur: new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB' })
+};
+
+evtSource.onmessage = function(event) {
+  const data = JSON.parse(event.data);
+
+  data.forEach(coin => {
+    const eur = document.getElementById(`price-eur-${coin.name}`);
+    const nieuwePrijs = priceFormatters.eur.format(coin.price);
+
+    if (eur) {
+      console.log(`🔁 ${coin.name} | Huidige waarde op pagina: ${eur.textContent} | Nieuwe waarde uit SSE: ${nieuwePrijs}`);
+      eur.textContent = nieuwePrijs;
+    }
+
+    const indexPrice = document.getElementById(`price-${coin.name}`);
+    if (indexPrice) indexPrice.textContent = `€ ${coin.price}`;
+
+    const usd = document.getElementById(`price-usd-${coin.name}`);
+    if (usd && coin.price_usd !== undefined) usd.textContent = priceFormatters.usd.format(coin.price_usd);
+
+    const btc = document.getElementById(`price-btc-${coin.name}`);
+    if (btc && coin.price_btc !== undefined) {
+      // Gebruik de aangepaste formatter voor BTC
+      btc.textContent = priceFormatters.btc.format(coin.price_btc);
+    }
+
+    const cny = document.getElementById(`price-cny-${coin.name}`);
+    if (cny && coin.price_cny !== undefined) cny.textContent = priceFormatters.cny.format(coin.price_cny);
+
+    const gbp = document.getElementById(`price-gbp-${coin.name}`);
+    if (gbp && coin.price_gbp !== undefined) gbp.textContent = priceFormatters.gbp.format(coin.price_gbp);
+
+    const rur = document.getElementById(`price-rur-${coin.name}`);
+    if (rur && coin.price_rur !== undefined) rur.textContent = priceFormatters.rur.format(coin.price_rur);
+  });
+};
+
+
+
+    evtSource.onerror = function(error) {
+      console.error('SSE fout:', error);
+    };
+  </script>
 </body>
 </html>

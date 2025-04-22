@@ -1,0 +1,29 @@
+{% layout "server/layouts/base.liquid" %}
+
+{% block content %}
+<section class="detail">
+<h2>{{ coin.Name }}</h2>
+<p>Label: {{ coin.Label }}</p>
+<div>
+    <P>1 {{ coin.Name }} =</P>
+    <p id="price-eur-{{ coin.Name | downcase }}">€ {{ coin.Price_eur }}</p>
+    <p id="price-btc-{{ coin.Name | downcase }}">₿ {{ coin.Price_btc }}</p>
+    <p id="price-usd-{{ coin.Name | downcase }}">$ {{ coin.Price_usd }}</p>
+    <p id="price-cny-{{ coin.Name | downcase }}">¥ {{ coin.Price_cny }}</p>
+    <p id="price-gbp-{{ coin.Name | downcase }}">£ {{ coin.Price_gbp }}</p>
+    <p id="price-rur-{{ coin.Name | downcase }}">₽ {{ coin.Price_rur }}</p>
+    
+</div>
+
+<p>Volume per 24 uur: {{ coin.Volume_24h }}</p>
+<p>Timestamp: {{ coin.Timestamp }}</p>
+
+<form>
+<label> Stel in bij welk bedrag je op de hoogte gehouden wilt worden:
+<input type="number" id="doelprijs-{{ coin.Name }}" placeholder="Goal" />
+<input type="submit" value="Set goal">
+</label>
+</form>
+</section>
+
+{% endblock %}

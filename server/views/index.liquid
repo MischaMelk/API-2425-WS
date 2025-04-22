@@ -1,17 +1,24 @@
 {% layout "server/layouts/base.liquid" %}
 
 {% block content %}
+<section class="index">
 
-<h1 class="h1">{{ title }}</h1>
-
-<ul class="grid">
-  {% for item in items %}
+<h1 class="h1">Lijst van Coins</h1>
+<ul>
+  {% for coin in coinArray %}
+    <a href="/{{ coin.name }}">
     <li>
-      <a href="/plant/{{ item.id }}">
-        {% render 'server/components/card/card.liquid', item: item %}
-      </a>
+        <p>{{ coin.coin.Label }}</p>
+      <p>{{ coin.coin.Name }}</p>
+
+      <p id="price-{{ coin.name }}">€ {{ coin.coin.Price_eur }}</p>
+      <p>{{ coin.coin.Volume_24h }}</p>
     </li>
+    </a>
   {% endfor %}
 </ul>
+
+</section>
+
 
 {% endblock %}
