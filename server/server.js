@@ -75,8 +75,8 @@ app.get('/events', (req, res) => {
     }
   };
 
-  sendUpdate(); // eerste direct
-  const interval = setInterval(sendUpdate, 10000); // elke 10 seconden
+  sendUpdate();
+  const interval = setInterval(sendUpdate, 60000); 
 
   req.on('close', () => {
     clearInterval(interval);
@@ -98,6 +98,8 @@ app.get('/:coinName', async (req, res) => {
 
   return res.send(renderTemplate('server/views/details.liquid', { coin }));
 });
+
+
 
 
 

@@ -1,24 +1,50 @@
 {% layout "server/layouts/base.liquid" %}
 
 {% block content %}
-<section class="index">
+  <section class="index">
+    <h1 class="h1">Lijst van Coins</h1>
+    <ul>
+      {% for coin in coinArray %}
+        <a href="/{{ coin.name }}">
+          <li>
+            <p>{{ coin.coin.Label }}</p>
+            <p>{{ coin.coin.Name }}</p>
 
-<h1 class="h1">Lijst van Coins</h1>
-<ul>
-  {% for coin in coinArray %}
-    <a href="/{{ coin.name }}">
-    <li>
-        <p>{{ coin.coin.Label }}</p>
-      <p>{{ coin.coin.Name }}</p>
+            <p id="price-{{ coin.name }}">€ {{ coin.coin.Price_eur }}</p>
+            <p>Goal:
+              <span class="noGoal" id="goal-{{ coin.name }}">None</span>
+            </p>
 
-      <p id="price-{{ coin.name }}">€ {{ coin.coin.Price_eur }}</p>
-      <p>{{ coin.coin.Volume_24h }}</p>
-    </li>
-    </a>
-  {% endfor %}
-</ul>
+          </li>
+        </a>
+      {% endfor %}
+    </ul>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+          const goals = JSON.parse(sessionStorage.getItem("goals") || "{}");
 
-</section>
+          Object.keys(goals).forEach(coinName => {
+      const goal = parseFloat(goals[coinName]);
+      const priceElement = document.getElementById(`price-${coinName}`);
+      const goalElement = document.getElementById(`goal-${coinName}`);
 
+      if (!priceElement || !goalElement) return;
 
+      // Haal de prijswaarde (zonder € en met komma vervanging)
+      const price = parseFloat(priceElement.textContent.replace("€", "").replace(",", ".").trim());
+
+      // Stel de doelwaarde in in de HTML
+      goalElement.textContent = "€ " + goal;
+
+      // Vergelijk en pas kleur aan
+      if (price < goal) {
+        goalElement.style.color = "green";
+      } else if (price >= goal) {
+        goalElement.style.color = "red";
+      }
+          });
+        });
+    </script>
+
+  </section>
 {% endblock %}
