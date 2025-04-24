@@ -27,11 +27,11 @@ In week 2 heb ik de pagina’s voor de munten opgezet. Ik heb ervoor gezorgd dat
 
 De eerste afbeelding toont hoe het homescreen is opgezet. Hier zie je ook hoe ik de munten heb aangeroepen.
 
-![Screenshot 2025-04-24 at 21.40.46.png](attachment:d7c97f42-d094-4218-a2c7-bfb0aa664850:Screenshot_2025-04-24_at_21.40.46.png)
+<img src="readme-img/Screenshot 2025-04-24 at 21.40.46.png">
 
 Bij deze wordt de pagina aangemaakt per coin. Dit wordt dan gedaan met de naam van de coin in de link te zetten.
 
-![Screenshot 2025-04-24 at 21.40.32.png](attachment:b13f0c76-64cc-4707-b6d1-76c18775a97f:Screenshot_2025-04-24_at_21.40.32.png)
+<img src="/Users/mischamelkert/Documents/GitHub/API-2425-WS/readme-img/Screenshot 2025-04-24 at 21.40.32.png">
 
 Feedback:
 
@@ -41,11 +41,11 @@ Kijk naar server sent events
 
 In week 3 heb ik gewerkt aan de styling van de site en ben ik begonnen met de WebAPI’s. De eerste API die ik heb gebruikt, is Server-Sent-Events. Hiermee zorg ik ervoor dat de prijzen van de munten automatisch worden herladen zodra de API ze vernieuwt, zonder dat ik de hele pagina opnieuw hoef te laden. Dit heeft me veel tijd gekost deze week, maar uiteindelijk heb ik de volgende code ervoor gemaakt.
 
-![Screenshot 2025-04-24 at 21.43.21.png](attachment:5525a331-fe20-4bd2-a605-48230d6d84eb:Screenshot_2025-04-24_at_21.43.21.png)
+<img src="/Users/mischamelkert/Documents/GitHub/API-2425-WS/readme-img/Screenshot 2025-04-24 at 21.43.21.png">
 
 Ook heb ik de internationalization API gebruikt om de juiste schrijfmethode te hebben voor de coins en dat ziet er dan als volgt uit op de site:
 
-![Screenshot 2025-04-24 at 21.44.37.png](attachment:b8763b12-d3b9-48da-b113-cc83705fd777:Screenshot_2025-04-24_at_21.44.37.png)
+<img src="/Users/mischamelkert/Documents/GitHub/API-2425-WS/readme-img/Screenshot 2025-04-24 at 21.44.37.png">
 
 Feedback:
 Een reminder als de server refreshed.
@@ -60,11 +60,11 @@ In week 4 was het mijn taak om de site live te zetten op een server en de laatst
 
 Het is ook gelukt om de prijzen die je invoert op elke pagina door te voeren naar de homepage, zodat ze daar in het overzicht verschijnen.
 
-![Screenshot 2025-04-24 at 21.48.54.png](attachment:9c72ba27-966c-4cc5-a8c3-d5ecacb1c50e:Screenshot_2025-04-24_at_21.48.54.png)
+<img src="/Users/mischamelkert/Documents/GitHub/API-2425-WS/readme-img/Screenshot 2025-04-24 at 22.00.13.png">
 
 Het laatste wat ik wilde doen, is afgerond. Nu moet ik de site alleen nog live zetten op Render. Helaas had ik hier wat problemen mee. Ik heb een tijdje geprobeerd de site live te krijgen, wat uiteindelijk lukte, maar de CSS werd niet meegenomen. Na wat heen en weer overleggen met ChatGPT heb ik helaas de handdoek in de ring gegooid voor de styling van de live site.
 
-[https://api-2425-ws-mischam.onrender.com](https://api-2425-ws-mischam.onrender.com/)
+https://api-2425-ws-mischam.onrender.com 
 
 Bronnen:
 https://chatgpt.com/share/680a9697-4aac-8006-8b84-b102494dd805
