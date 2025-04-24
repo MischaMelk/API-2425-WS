@@ -5,7 +5,6 @@ import { logger } from '@tinyhttp/logger';
 import { Liquid } from 'liquidjs';
 import sirv from 'sirv';
 
-
 const engine = new Liquid({
   extname: '.liquid',
 });
@@ -14,6 +13,8 @@ const app = new App();
 const apiKey = process.env.API_KEY;
 const apiUrl = `https://www.worldcoinindex.com/apiservice/json?key=${apiKey}`;
 
+// Zorg ervoor dat de public map goed wordt geserveerd voor statische bestanden zoals CSS
+app.use(express.static('server/public'));  // Dit zorgt ervoor dat de CSS beschikbaar is
 
 app.get('/', async (req, res) => {
   const crypto = await fetch(apiUrl);
@@ -31,7 +32,6 @@ app.get('/', async (req, res) => {
 
   return res.send(renderTemplate('server/views/index.liquid', { coinArray }));
 });
-
 
 app.get('/events', (req, res) => {
   res.setHeader('Content-Type', 'text/event-stream');
@@ -85,7 +85,6 @@ app.get('/events', (req, res) => {
   });
 });
 
-
 app.get('/:coinName', async (req, res) => {
   const { coinName } = req.params;
   const crypto = await fetch(apiUrl);
@@ -99,11 +98,6 @@ app.get('/:coinName', async (req, res) => {
 
   return res.send(renderTemplate('server/views/details.liquid', { coin }));
 });
-
-
-
-
-
 
 const renderTemplate = (template, data) => {
   const templateData = {
