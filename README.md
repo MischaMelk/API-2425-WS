@@ -41,7 +41,7 @@ Kijk naar server sent events
 
 In week 3 heb ik gewerkt aan de styling van de site en ben ik begonnen met de WebAPI’s. De eerste API die ik heb gebruikt, is Server-Sent-Events. Hiermee zorg ik ervoor dat de prijzen van de munten automatisch worden herladen zodra de API ze vernieuwt, zonder dat ik de hele pagina opnieuw hoef te laden. Dit heeft me veel tijd gekost deze week, maar uiteindelijk heb ik de volgende code ervoor gemaakt.
 
-<img src="readme-img/Screenshot 2025-04-24 at 21.43.21.pngg">
+<img src="readme-img/Screenshot 2025-04-24 at 21.43.21.png">
 
 Ook heb ik de internationalization API gebruikt om de juiste schrijfmethode te hebben voor de coins en dat ziet er dan als volgt uit op de site:
 
