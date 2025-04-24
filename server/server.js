@@ -1,19 +1,30 @@
 import 'dotenv/config';
 import express from 'express';
-import { App } from '@tinyhttp/app';
-import { logger } from '@tinyhttp/logger';
+import path from 'path';
 import { Liquid } from 'liquidjs';
+import { fileURLToPath } from 'url';
 import sirv from 'sirv';
 
-const engine = new Liquid({
-  extname: '.liquid',
-});
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-const app = new App();
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+// Liquid view engine instellen
+const engine = new Liquid({ extname: '.liquid' });
+app.engine('liquid', engine.express()); 
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'liquid');
+
+// API key
 const apiKey = process.env.API_KEY;
 const apiUrl = `https://www.worldcoinindex.com/apiservice/json?key=${apiKey}`;
 
+// Statische bestanden serveren (build folder van Vite)
+app.use(express.static(path.join(__dirname, '../dist')));
 
+// Routes
 app.get('/', async (req, res) => {
   const crypto = await fetch(apiUrl);
   const cryptoData = await crypto.json();
@@ -28,9 +39,8 @@ app.get('/', async (req, res) => {
     coin: coin
   }));
 
-  return res.send(renderTemplate('server/views/index.liquid', { coinArray }));
+  res.render('index', { coinArray });
 });
-
 
 app.get('/events', (req, res) => {
   res.setHeader('Content-Type', 'text/event-stream');
@@ -62,28 +72,20 @@ app.get('/events', (req, res) => {
       const isDifferent = JSON.stringify(simplified) !== JSON.stringify(previousData);
 
       if (isDifferent) {
-        console.log(`[${new Date().toISOString()}] Prijzen verstuurd:`, simplified);
         res.write(`data: ${JSON.stringify(simplified)}\n\n`);
         previousData = simplified;
-      } else {
-        console.log(`[${new Date().toISOString()}] Geen prijswijziging`);
       }
 
     } catch (err) {
-      console.error('Fout bij ophalen van crypto-data:', err);
       res.write(`event: error\ndata: ${JSON.stringify({ message: 'Fout bij ophalen van data' })}\n\n`);
     }
   };
 
   sendUpdate();
-  const interval = setInterval(sendUpdate, 60000); 
+  const interval = setInterval(sendUpdate, 60000);
 
-  req.on('close', () => {
-    clearInterval(interval);
-    console.log('SSE verbinding gesloten');
-  });
+  req.on('close', () => clearInterval(interval));
 });
-
 
 app.get('/:coinName', async (req, res) => {
   const { coinName } = req.params;
@@ -96,24 +98,15 @@ app.get('/:coinName', async (req, res) => {
     return res.status(404).send('Coin not found');
   }
 
-  return res.send(renderTemplate('server/views/details.liquid', { coin }));
+  res.render('details', { coin });
 });
 
+// fallback naar frontend (SPA support)
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../dist/index.html'));
+});
 
-
-
-
-
-const renderTemplate = (template, data) => {
-  const templateData = {
-    NODE_ENV: process.env.NODE_ENV || 'production',
-    ...data
-  };
-
-  return engine.renderFileSync(template, templateData);
-};
-
-app
-  .use(logger())
-  .use('/', sirv(process.env.NODE_ENV === 'development' ? 'client' : 'dist'))
-  .listen(3000, () => console.log('Server available on http://localhost:3000'));
+// Start de server
+app.listen(PORT, () => {
+  console.log(`✅ Server draait op http://localhost:${PORT}`);
+});
