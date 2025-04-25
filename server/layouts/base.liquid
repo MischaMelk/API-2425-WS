@@ -2,7 +2,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="server/views/index.css">
+    <link rel="stylesheet" href="index.css">
     {% block head %}
       <title>{{ title }}</title>
     {% endblock %}
@@ -24,6 +24,7 @@
     {% endif %}
     {% block styles %}
     {% endblock %}
+    <link rel="stylesheet" href="/index.css">
     {% block scripts %}
     {% endblock %}
   </head>
