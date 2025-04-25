@@ -5,8 +5,7 @@
     {% block head %}
       <title>{{ title }}</title>
     {% endblock %}
-
-
+    {% if NODE_ENV == "development" %}
       <script
         type="module"
         src="http://localhost:5173/@vite/client"
@@ -20,10 +19,10 @@
 
     {% else %}
       <script src="/index.js" defer></script>
+      <link rel="stylesheet" href="/index.css">
     {% endif %}
     {% block styles %}
     {% endblock %}
-    <link rel="stylesheet" href="./index.css">
     {% block scripts %}
     {% endblock %}
   </head>
