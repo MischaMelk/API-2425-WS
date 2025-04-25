@@ -6,16 +6,18 @@
       <title>{{ title }}</title>
     {% endblock %}
     {% if NODE_ENV == "development" %}
-      <link rel="stylesheet" href="API-2425-WS/server/views/index.css">
 
       <script
         type="module"
         src="http://localhost:5173/@vite/client"
         defer></script>
+      <link rel="stylesheet" href="server/views/index.css">
       <script
         type="module"
         src="http://localhost:5173/client/index.js"
         defer></script>
+
+
     {% else %}
       <script src="/index.js" defer></script>
     {% endif %}
