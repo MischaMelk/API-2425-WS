@@ -17,38 +17,17 @@
     <p>Volume per 24 uur: {{ coin.Volume_24h }}</p>
 
 
-    <form method="POST">
+    <form method="POST" action="/set-goal">
+
       <label>
         <p>Stel in bij welk bedrag je op de hoogte gehouden wilt worden:</p>
         <div>
-  <input type="number" id="doelprijs-{{ coin.Name | downcase }}" placeholder="Stel je doelprijs in">
-  <button id="save-goal">Opslaan</button>
+          <input type="number" name="goalPrice" id="doelprijs-{{ coin.Name | downcase }}" placeholder="Stel je doelprijs in">
+          <button id="save-goal-{{ coin.Name | downcase }}">Opslaan</button>
+          <a href="/">Terug</a>
 </div>
     </form>
-    <script>
-        document.getElementById("save-goal").addEventListener("click", function(e) {
-          e.preventDefault(); // voorkom submit
-      
-          const coinName = "{{ coin.Name | downcase }}";
-          const input = document.getElementById(`doelprijs-${coinName}`);
-          const doelprijs = input.value;
-      
-          if (doelprijs) {
-            // Pak de bestaande data uit sessionStorage of begin met een leeg object
-            const goals = JSON.parse(sessionStorage.getItem("goals") || "{}");
-      
-            // Voeg of update deze coin
-            goals[coinName] = doelprijs;
-      
-            // Zet terug in sessionStorage
-            sessionStorage.setItem("goals", JSON.stringify(goals));
-      
-            alert(`Doelprijs voor ${coinName} is ingesteld op €${doelprijs}`);
-          } else {
-            alert("Voer een doelprijs in voordat je opslaat.");
-          }
-        });
-      </script>
+
       
 
   </section>

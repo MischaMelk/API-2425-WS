@@ -12,39 +12,21 @@
 
             <p id="price-{{ coin.name }}">€ {{ coin.coin.Price_eur }}</p>
             <p>Goal:
-              <span class="noGoal" id="goal-{{ coin.name }}">None</span>
+              <span id="goal-{{ coin.name }}">
+                {% if goals[coin.name] %}
+                  € {{ goals[coin.name] }}
+                {% else %}
+                  None
+                {% endif %}
+              </span>
             </p>
+
 
           </li>
         </a>
       {% endfor %}
     </ul>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-          const goals = JSON.parse(sessionStorage.getItem("goals") || "{}");
 
-          Object.keys(goals).forEach(coinName => {
-      const goal = parseFloat(goals[coinName]);
-      const priceElement = document.getElementById(`price-${coinName}`);
-      const goalElement = document.getElementById(`goal-${coinName}`);
-
-      if (!priceElement || !goalElement) return;
-
-      // Haal de prijswaarde (zonder € en met komma vervanging)
-      const price = parseFloat(priceElement.textContent.replace("€", "").replace(",", ".").trim());
-
-      // Stel de doelwaarde in in de HTML
-      goalElement.textContent = "€ " + goal;
-
-      // Vergelijk en pas kleur aan
-      if (price < goal) {
-        goalElement.style.color = "green";
-      } else if (price >= goal) {
-        goalElement.style.color = "red";
-      }
-          });
-        });
-    </script>
 
   </section>
 {% endblock %}

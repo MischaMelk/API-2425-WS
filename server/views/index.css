@@ -88,6 +88,18 @@ h2{
 
 }
 
+a{
+  background-color: white;
+  width: 6em;
+  padding: .5em;
+  margin-top: .8em;
+  border: 1px solid #2a71ff;
+  border-radius: .5em;
+  font-style: none;
+  text-align: center;
+text-decoration: none;
+color: black;
+}
   p{
     margin-top: 1em;;
     grid-column: 2;
