@@ -66,6 +66,18 @@ Het laatste wat ik wilde doen, is afgerond. Nu moet ik de site alleen nog live z
 
 https://api-2425-ws-mischam.onrender.com 
 
+**Herkansingsweek:**
+
+In de herkansingsweek heb ik een aantal dingen aangepast aan mijn code. Zo had ik bijvoorbeeld dubbele code staan voor het ophalen van de gekozen coins maar dit deed ik vaker in de code, hierdooer had ik dubbel werk en was mijn code groter dan nodig was. Dit is aangepast naar een functie zoals het volgende:
+<img src="readme-img/Screenshot 2025-05-06 at 13.35.33.png">
+<img src="readme-img/Screenshot 2025-05-06 at 13.35.51.png">
+
+Ook heb ik de scripts die in de liquid bestanden stond naar de client side verhaald door het allemaal in index.js te zetten. Na wat foutmeldingen opgelost te hebben is dit compleet.
+
+Als laatste grote verandering heb ik in plaats van session storage gebruik gemaakt van local storage via node. Hiermee heb ik niet meer het probleem dat als ik mijn tabblad afsluit dat ik mijn gegevens kwijt ben. Hiermee wordt nu dus de storage opgeslagen in de server side in plaats van de client side.
+
+Helaas was het probleem van het css inladen in mijn live render site niet opgelost, hier heb ik met cyd nog snel naar gekeken met mijn gesprek en nog zelf wat geprobeerd maar hier ben ik niet uitgekomen.
+
 Bronnen:
 https://chatgpt.com/share/680a9697-4aac-8006-8b84-b102494dd805
 
